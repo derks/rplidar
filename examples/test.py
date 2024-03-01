@@ -16,6 +16,7 @@ $ python test.py
 
 '''
 
+import os
 from rplidar import RPLidar
 
 DEVICE = os.environ.get('RPLIDAR_DEVICE', '/dev/ttyUSB0')
