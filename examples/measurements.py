@@ -2,6 +2,12 @@
 '''
 Capture measurements.
 
+Typical Devices:
+
+- Linux: /dev/ttyUSB0
+- macOS: /dev/tty.usbserial-0001
+
+
 Usage:
 
 $ export RPLIDAR_DEVICE=/dev/ttyUSB0
