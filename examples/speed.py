@@ -1,13 +1,26 @@
 #!/usr/bin/env python3
-'''Measures sensor scanning speed'''
+'''
+Measures sensor scanning speed.
+
+Usage:
+
+$ export RPLIDAR_DEVICE=/dev/ttyUSB0
+
+$ python speed.py
+
+'''
+
+import os
 from rplidar import RPLidar
 import time
 
-PORT_NAME = '/dev/ttyUSB0'
 
-def run():
+DEVICE = os.environ.get('RPLIDAR_DEVICE', '/dev/ttyUSB0')
+
+
+def main():
     '''Main function'''
-    lidar = RPLidar(PORT_NAME)
+    lidar = RPLidar(DEVICE)
     old_t = None
     data = []
     try:
@@ -22,11 +35,11 @@ def run():
             data.append(delta)
             old_t = now
     except KeyboardInterrupt:
-        print('Stoping. Computing mean...')
+        print('Stopping. Computing mean...')
         lidar.stop()
         lidar.disconnect()
         delta = sum(data)/len(data)
         print('Mean: %.2f Hz, %.2f RPM' % (1/delta, 60/delta))
 
 if __name__ == '__main__':
-    run()
+    main()

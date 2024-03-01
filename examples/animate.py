@@ -1,11 +1,23 @@
 #!/usr/bin/env python3
-'''Animates distances and measurment quality'''
+'''
+Animates distances and measurment quality
+
+Usage:
+
+$ export RPLIDAR_DEVICE=/dev/ttyUSB0
+
+$ python animate.py
+
+'''
+
+import os
 from rplidar import RPLidar
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.animation as animation
 
-PORT_NAME = '/dev/ttyUSB0'
+
+DEVICE = os.environ.get('RPLIDAR_DEVICE', '/dev/ttyUSB0')
 DMAX = 4000
 IMIN = 0
 IMAX = 50
@@ -18,8 +30,8 @@ def update_line(num, iterator, line):
     line.set_array(intens)
     return line,
 
-def run():
-    lidar = RPLidar(PORT_NAME)
+def main():
+    lidar = RPLidar(DEVICE)
     fig = plt.figure()
     ax = plt.subplot(111, projection='polar')
     line = ax.scatter([0, 0], [0, 0], s=5, c=[IMIN, IMAX],
@@ -35,4 +47,4 @@ def run():
     lidar.disconnect()
 
 if __name__ == '__main__':
-    run()
+    main()
